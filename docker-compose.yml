@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres-container:
+    image: postgres:13.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgres
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    ports:
+      - 5432:5432
+    networks:
+      - app_net
+networks:
+  app_net:
+volumes:
+  db_data:
